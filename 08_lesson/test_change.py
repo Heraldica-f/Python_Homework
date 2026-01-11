@@ -1,9 +1,12 @@
 import requests
+import os
 from YouGileAPI import YouGileAPI
+from dotenv import load_dotenv
+load_dotenv()
 
 base_url = 'https://ru.yougile.com/api-v2/'
-token = 'CDQBQEouQE1MNO2r7mV+VBY2EhiQPeGW5BteNVKzT8HTdjlnu2agaKgacvRlkEwF' # Указать личный токен компании
-user_id = '2660968b-501d-405e-9780-c1dfe73eecaf' # Указать личный user id
+token = os.getenv('YouGile_token') 
+user_id = os.getenv('YouGile_user_id') 
 
 api = YouGileAPI(base_url, token, user_id)
 
@@ -30,8 +33,14 @@ def test_positive_change_progect():
     assert project_after['title'] != project_before['title']
     assert project_after['title'] == title_after
 
+    delete_proj = api.delete_project(project_id)
+    assert delete_proj.status_code == 200
+
 def test_negative_change_priject():
     fake_project_id = '00000000-0000-0000-0000-000000000000'
     update_proj = api.change_project(fake_project_id, title="Новое название")
 
     assert update_proj.status_code == 404
+
+    error_data = update_proj.json()
+    assert error_data['message'] == 'Проект не найден'

@@ -1,4 +1,5 @@
 import requests
+import os
 
 class YouGileAPI:
     def __init__(self, base_url, token, user_id):
@@ -42,4 +43,12 @@ class YouGileAPI:
             data['users'] = users
 
         resp = requests.put(f'{self.base_url}projects/{project_id}', headers=headers, json=data)
+        return resp
+    
+    def delete_project(self, project_id):
+        headers = {
+            "Authorization": f"Bearer {self.token}",
+            "Content-Type": "application/json"
+        }
+        resp = requests.put(f"{self.base_url}projects/{project_id}", headers=headers, json={})
         return resp
