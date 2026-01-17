@@ -1,0 +1,6 @@
+1. Установить библитеку python-dotenv(pip install python-dotenv)
+2. Создать файл '.env'.
+3. Указать в нем две переменных: YouGile_token и YouGile_user_id, где значение YouGile_token - это токен/ключ вашей личной учетной записи в YouGile, а значение YouGile_user_id - это user id от вашего личного профиля в YouGile.
+Пример:(Переменные вписывать без пробелов до и после '=', а также значение переменных не брать в кавычки)
+YouGile_token=ваш токен/ключ
+YouGile_user_id=ваш user id
